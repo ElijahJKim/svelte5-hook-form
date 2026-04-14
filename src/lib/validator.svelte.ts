@@ -36,11 +36,20 @@ function describeRuleValue(rule: unknown): string {
 
 type ValidatorMap = {
   required: (value: unknown, rule: RequiredRule) => ValidationResult;
-  minLength: (value: unknown, rule: RuleWithMessage<number>) => ValidationResult;
-  maxLength: (value: unknown, rule: RuleWithMessage<number>) => ValidationResult;
+  minLength: (
+    value: unknown,
+    rule: RuleWithMessage<number>,
+  ) => ValidationResult;
+  maxLength: (
+    value: unknown,
+    rule: RuleWithMessage<number>,
+  ) => ValidationResult;
   min: (value: unknown, rule: RuleWithMessage<number>) => ValidationResult;
   max: (value: unknown, rule: RuleWithMessage<number>) => ValidationResult;
-  pattern: (value: unknown, rule: RegExp | RuleObject<RegExp>) => ValidationResult;
+  pattern: (
+    value: unknown,
+    rule: RegExp | RuleObject<RegExp>,
+  ) => ValidationResult;
   validate: (value: unknown, rule: ValidateFunction) => ValidationResult;
 };
 

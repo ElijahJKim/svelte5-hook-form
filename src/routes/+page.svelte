@@ -1,32 +1,39 @@
-<script>
-  import { createForm } from "$lib/index.svelte.ts";
+<script lang="ts">
+  import { createForm } from "$lib/index.svelte";
 
-  const myForm = createForm({ name: "", age: 0 });
-  const { form, register, handleSubmit, errors } = myForm;
+  const {
+    form,
+    errors,
+    register,
+    setError,
+    clearErrors,
+    handleSubmit,
+    isValid,
+  } = createForm({
+    initialValues: { email: "" },
+    onSubmit: async (data) => {
+      setError("email", "이미 가입된 이메일입니다.");
+    },
+  });
+
+  function handleInput() {
+    if (errors.email) {
+      clearErrors("email");
+    }
+  }
 </script>
 
 <form onsubmit={handleSubmit}>
-  <label>이름</label>
   <input
-    type="text"
-    bind:value={form.name}
-    {@attach register("name", {
-      required: "성함을 말씀해주세요",
-      minLength: 3,
-    })}
+    bind:value={form.email}
+    oninput={handleInput}
+    {@attach register("email", { required: true })}
   />
-  {#if errors.name}
-    <p>{errors.name}</p>
-  {/if}
-
-  <label>나이</label>
-  <input
-    type="number"
-    bind:value={form.age}
-    {@attach register("age", { required: true, min: 18 })}
-  />
-  {#if errors.age}
-    <p>{errors.age}</p>
-  {/if}
-  <button type="submit">Submit</button>
+  <button type="submit" disabled={!isValid()}>Submit</button>
 </form>
+
+{#if errors.email}
+  <p style="color: red;">{errors.email}</p>
+  <button type="button" onclick={() => clearErrors("email")}>에러 지우기</button
+  >
+{/if}

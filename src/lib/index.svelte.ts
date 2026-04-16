@@ -144,7 +144,10 @@ class HookForm<T extends FormValues> {
 
       const handleBlur = () => {
         this.touchedFields[name] = true;
-        validateCurrentField();
+
+        if (options.mode) {
+          validateCurrentField();
+        }
       };
 
       if (options.mode === "onInput") {
@@ -155,11 +158,7 @@ class HookForm<T extends FormValues> {
 
       return () => {
         delete this.rules[name];
-
-        if (options.mode === "onInput") {
-          node.removeEventListener("input", validateCurrentField);
-        }
-
+        node.removeEventListener("input", validateCurrentField);
         node.removeEventListener("blur", handleBlur);
       };
     };

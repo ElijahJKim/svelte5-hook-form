@@ -4,7 +4,7 @@ import {
   type RuleObject,
   type RuleWithMessage,
   type ValidateFunction,
-} from "./validator.svelte";
+} from "./validator";
 
 // [EN] Defines the base shape of form data: keys are always strings and values can be unknown.
 // [KR] 폼에 들어갈 데이터의 기본 형태를 정의합니다. 키(Key)는 문자열(string)이고 값(Value)은 unknown일 수 있습니다.

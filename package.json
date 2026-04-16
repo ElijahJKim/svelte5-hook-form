@@ -1,10 +1,10 @@
 {
   "name": "svelte5-hook-form",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "The modern, reactive, and headless form validation library for Svelte 5",
   "license": "MIT",
-  "author": "ElijahJKim",
+  "author": "Elijah J Kim",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ElijahJKim/svelte5-hook-form.git"
@@ -29,16 +29,18 @@
   "sideEffects": [
     "**/*.css"
   ],
-  "svelte": "./dist/index.svelte.js",
-  "types": "./dist/index.svelte.d.ts",
+  "svelte": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.svelte.d.ts",
-      "svelte": "./dist/index.svelte.js"
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./validator": {
-      "types": "./dist/validator.svelte.d.ts",
-      "svelte": "./dist/validator.svelte.js"
+      "types": "./dist/validator.d.ts",
+      "svelte": "./dist/validator.js",
+      "default": "./dist/validator.js"
     }
   },
   "peerDependencies": {

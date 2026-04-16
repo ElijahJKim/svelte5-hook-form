@@ -61,7 +61,6 @@ declare module '$env/static/private' {
 	export const npm_package_integrity: string;
 	export const LSCOLORS: string;
 	export const PATH: string;
-	export const npm_config_access: string;
 	export const LaunchInstanceID: string;
 	export const npm_package_json: string;
 	export const __CFBundleIdentifier: string;
@@ -171,7 +170,6 @@ declare module '$env/dynamic/private' {
 		npm_package_integrity: string;
 		LSCOLORS: string;
 		PATH: string;
-		npm_config_access: string;
 		LaunchInstanceID: string;
 		npm_package_json: string;
 		__CFBundleIdentifier: string;

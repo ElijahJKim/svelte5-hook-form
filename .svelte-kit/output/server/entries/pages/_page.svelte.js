@@ -1,4 +1,4 @@
-import { x as derived, y as attr, z as attr_style, F as stringify } from "../../chunks/index.js";
+import { x as attr, y as attr_style, z as stringify } from "../../chunks/index.js";
 import { e as escape_html } from "../../chunks/context.js";
 function isRuleObject(rule) {
   return typeof rule === "object" && rule !== null && "value" in rule;
@@ -33,22 +33,34 @@ const validators = {
     return null;
   },
   minLength: (value, rule) => {
-    const { value: min, message } = extractRule(rule, `Minimum ${describeRuleValue(rule)} characters`);
+    const { value: min, message } = extractRule(
+      rule,
+      `Minimum ${describeRuleValue(rule)} characters`
+    );
     if (typeof value === "string" && value.length < min) return message;
     return null;
   },
   maxLength: (value, rule) => {
-    const { value: max, message } = extractRule(rule, `Maximum ${describeRuleValue(rule)} characters`);
+    const { value: max, message } = extractRule(
+      rule,
+      `Maximum ${describeRuleValue(rule)} characters`
+    );
     if (typeof value === "string" && value.length > max) return message;
     return null;
   },
   min: (value, rule) => {
-    const { value: min, message } = extractRule(rule, `${describeRuleValue(rule)} minimum value`);
+    const { value: min, message } = extractRule(
+      rule,
+      `${describeRuleValue(rule)} minimum value`
+    );
     if (value !== "" && Number(value) < min) return message;
     return null;
   },
   max: (value, rule) => {
-    const { value: max, message } = extractRule(rule, `${describeRuleValue(rule)} maximum value`);
+    const { value: max, message } = extractRule(
+      rule,
+      `${describeRuleValue(rule)} maximum value`
+    );
     if (value !== "" && Number(value) > max) return message;
     return null;
   },
@@ -70,43 +82,35 @@ const validators = {
 class HookForm {
   // [EN] Declares reactive state with Svelte 5 $state for values that should trigger rerenders.
   // [KR] Svelte 5의 핵심인 $state를 사용해 바뀌면 화면을 다시 그려야 하는 변수들을 선언합니다.
-  form = {};
-  errors = {};
+  form = $state({});
+  errors = $state({});
   rules = {};
-  touchedFields = {};
-  isSubmitting = false;
+  touchedFields = $state(
+    {}
+  );
+  isSubmitting = $state(false);
   // [EN] Internal storage values that do not need direct rerender tracking.
   // [KR] 화면을 다시 그릴 필요가 없는 내부 보관용 데이터입니다.
   defaultValues = {};
   onSubmitFunc;
-  #isValid = derived(
-    // [EN] Checks whether the entire form is valid.
-    // [KR] 전체 폼이 유효한지 검사합니다.
-    () => {
-      for (const key of this.getRegisteredKeys()) {
-        if (this.validateField(key) !== "") return false;
-      }
-      return true;
+  // [EN] Checks whether the entire form is valid.
+  // [KR] 전체 폼이 유효한지 검사합니다.
+  isValid = $derived.by(() => {
+    for (const key of this.getRegisteredKeys()) {
+      if (this.validateField(key) !== "") return false;
     }
-  );
-  get isValid() {
-    return this.#isValid();
-  }
-  set isValid($$value) {
-    return this.#isValid($$value);
-  }
-  #isDirty = derived(() => {
+    return true;
+  });
+  // [EN] Checks whether at least one value differs from defaults (dirty state).
+  // [KR] 초기값과 현재값이 하나라도 다른지(오염 상태인지) 확인합니다.
+  isDirty = $derived.by(() => {
     for (const key of this.getDefaultKeys()) {
       if (this.form[key] !== this.defaultValues[key]) return true;
     }
     return false;
   });
-  get isDirty() {
-    return this.#isDirty();
-  }
-  set isDirty($$value) {
-    return this.#isDirty($$value);
-  }
+  // [EN] Initializes internal state from user-provided options.
+  // [KR] 유저가 준 options를 내부 변수에 세팅합니다.
   constructor(options) {
     this.defaultValues = { ...options.initialValues };
     this.form = { ...options.initialValues };

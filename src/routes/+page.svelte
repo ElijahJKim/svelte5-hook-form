@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createForm } from "$lib/index.svelte";
+  import { createForm } from "$lib";
 
   // 1. 폼 초기화
   const {

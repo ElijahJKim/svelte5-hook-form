@@ -1,4 +1,4 @@
-import { type RequiredRule, type RuleObject, type RuleWithMessage, type ValidateFunction } from "./validator.svelte";
+import { type RequiredRule, type RuleObject, type RuleWithMessage, type ValidateFunction } from "./validator";
 type FormValues = Record<string, unknown>;
 export type RegisterOptions<Value = unknown> = {
     required?: RequiredRule;

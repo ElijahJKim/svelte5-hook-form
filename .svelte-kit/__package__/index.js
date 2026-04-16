@@ -1,4 +1,4 @@
-import { validators, } from "./validator.svelte";
+import { validators, } from "./validator";
 class HookForm {
     // [EN] Declares reactive state with Svelte 5 $state for values that should trigger rerenders.
     // [KR] Svelte 5의 핵심인 $state를 사용해 바뀌면 화면을 다시 그려야 하는 변수들을 선언합니다.

@@ -1244,36 +1244,12 @@ function attr_style(value, directives) {
   var result = to_style(value, directives);
   return result ? ` style="${escape_html(result, true)}"` : "";
 }
-function once(get_value) {
-  let value = (
-    /** @type {V} */
-    UNINITIALIZED
-  );
-  return () => {
-    if (value === UNINITIALIZED) {
-      value = get_value();
-    }
-    return value;
-  };
-}
-function derived(fn) {
-  const get_value = once(fn);
-  let updated_value;
-  return function(new_value) {
-    if (arguments.length === 0) {
-      return updated_value ?? get_value();
-    }
-    updated_value = new_value;
-    return updated_value;
-  };
-}
 export {
   ASYNC as A,
   BOUNDARY_EFFECT as B,
   COMMENT_NODE as C,
   DIRTY as D,
   ERROR_VALUE as E,
-  stringify as F,
   HYDRATION_ERROR as H,
   INERT as I,
   LEGACY_PROPS as L,
@@ -1305,7 +1281,7 @@ export {
   uneval as u,
   is_passive_event as v,
   render as w,
-  derived as x,
-  attr as y,
-  attr_style as z
+  attr as x,
+  attr_style as y,
+  stringify as z
 };
